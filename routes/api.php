@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\HTTP\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+
+
+
+// VOLGENDE ROUTES KUNNEN ALLEEN WORDEMN BENADERT WANNEER ER INGELOGD IS 
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    Route::get('logout', [AuthController::class, 'logout']);
+
+
+
+    // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
+    Route::group(['middleware' => ['isDirectie']], function() {
+    
+
+
+
+    });
+
+    // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS MAGAZIJNMEDEWERKER OF HOGER
+    Route::group(['middleware' => ['isMagazijnmedewerker']], function() {
+    
+
+
+
+    });
+
+    // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF HOGER
+    Route::group(['middleware' => ['isVrijwilliger']], function() {
+    
+
+
+
+    });
+
+
+
+
 });
+
