@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\HTTP\Controllers\AuthController;
+use App\HTTP\Controllers\FamilyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +23,18 @@ Route::post('register', [AuthController::class, 'register']);
 
 
 
-// VOLGENDE ROUTES KUNNEN ALLEEN WORDEMN BENADERT WANNEER ER INGELOGD IS
+// VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT WANNEER ER INGELOGD IS
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('user', [AuthController::class, 'authToken']);
 
 
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
         Route::get('parcels', [parcelController::class, 'parcels']);
+        route::apiResource('klanten', FamilyController::class);
+
 
 
 
@@ -41,10 +45,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
 
 
-
     });
 
-    // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF HOGER
+    // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER
     Route::group(['middleware' => ['isVrijwilliger']], function() {
 
 

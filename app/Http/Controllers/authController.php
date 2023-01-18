@@ -27,7 +27,7 @@ class AuthController extends Controller
 
 
         if ($user->role_id == 0) {
-            $token = $user->createToken('token', ['directie'])->plainTextToken;
+            $token = $user->createToken('token', ['directie', 'magazijnmedewerker', 'vrijwilliger'])->plainTextToken;
         }
 
         if ($user->role_id == 1) {
@@ -42,6 +42,7 @@ class AuthController extends Controller
         $user['role'] = $role->role_name;
 
         $response = [
+            'user_id'=>$user->id,
             'user' => $user->name,
             'email' => $user->email,
             'role_id' => $user->role_id,
@@ -68,7 +69,7 @@ class AuthController extends Controller
         }
 
         if ($user->role_id == 1) {
-            $token = $user->createToken('token', ['directie'])->plainTextToken;
+            $token = $user->createToken('token', ['directie', 'magazijnmedewerker', 'vrijwilliger'])->plainTextToken;
         }
 
         if ($user->role_id == 2) {
@@ -84,6 +85,7 @@ class AuthController extends Controller
         $user['role'] = $role->role_name;
 
         $response = [
+            'user_id'=>$user->id,
             'user' => $user->name,
             'email' => $user->email,
             'role_id' => $user->role_id,
@@ -106,13 +108,27 @@ class AuthController extends Controller
 
 
     public function authToken(Request $request) {
-        $user =  $request->user();
 
-        $role = Roles::where('id', $user->role_id)->get('role_name')->first();
-        $user['role'] = $role->role_name;
+        if ($request->user()) {
+            $user =  $request->user();
 
-        return response([
-            'user' => $user
-        ], 200);
+            $role = Role::where('id', $user->role_id)->get('role_name')->first();
+            $user['role'] = $role->role_name;
+
+            $response = [
+                'user_id'=>$user->id,
+                'user' => $user->name,
+                'email' => $user->email,
+                'role_id' => $user->role_id,
+                'role' => $user->role,
+            ];
+
+            return response($response, 200);
+        }
+        else {
+            return response([
+                'message'=>'user not found'
+            ],404);
+        }
     }
 }
