@@ -1,32 +1,46 @@
 
+   INFO  Seeding database.  
+
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1' for key 'PRIMARY' (SQL: 
+
+INSERT INTO `roles` (`id`, `rolnaam`) VALUES
+(0, 'directie'),
+(1, 'medewerker'),
+(2, 'vrijwilliger');
+
+
+
 --
 -- Gegevens worden geëxporteerd voor tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `email_verified_at`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'RootMe', 'root@app.com', '$2y$10$64FD.srFXpwGUb2E1beTzuy/ZAa4Gnms4dQp2RxGtCVavIaVT1ZQW', '2022-12-05 16:08:24', 'v940UggXA7', NULL, '2022-12-05 16:08:24', '2022-12-05 16:08:24'),
-(2, 'AdminMe', 'admin@app.com', '$2y$10$scmWMeGT9fEUZgjDZfJpr.DyEzlptAV.sT0j7nHQoEZnsiIOHYIZm', '2022-12-05 16:08:24', '8h61XsyPVH', NULL, '2022-12-05 16:08:24', '2022-12-05 16:08:24'),
-(3, 'UserMe', 'user@app.com', '$2y$10$P4.iPbA3J8guos0o6IIjkeVCDsiDsoqXMQ5nT7VZlkV8UAHg/U9mi', '2022-12-05 16:08:25', 'uCjmeeBNBc', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(4, 'ds. Noëlle van Doorn PhD', 'jonathan.middelkoop@yahoo.nl', '$2y$10$G9A7ZcIotHz1.2x.zSeXpecV9WhmXwyxVPLVOnf5M5LGGlEgh05P.', '2022-12-05 16:08:25', 'FJqr9nw4vx', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(5, 'drs Tycho Vertooren LLB', 'hoelen.kyan@huijs.org', '$2y$10$MTDWmCzRCrMLDcbcMB7AD.BKrCBfS2LhLVRl1HebrRjMGLqoVXuPa', '2022-12-05 16:08:25', 'TUh41UY4Hn', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(6, 'Beau Hanegraaff', 'demarduras.bilal@hotmail.nl', '$2y$10$ELm6X7vyjPPMDWTqh/TZ7ONGtXhSZuhfKItab1YZupO4917QzFBw6', '2022-12-05 16:08:25', 'Xb9pTIkyiQ', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(7, 'Jennifer Bolkesteijn', 'arslan.mirthe@jansen.nl', '$2y$10$eTS7noa5DZ/k5F5UYtzWcuHVBfQZvNBy04aQvQNdxoEH11VTre7oe', '2022-12-05 16:08:25', 'AKiHCzoXaq', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(8, 'Evi van der Meulen', 'rosalie28@gmail.com', '$2y$10$bn7zt9QgQUVm5fk71sgRLe9xq1SACY53ME8K/nxMxCTCbaH4ZlY4W', '2022-12-05 16:08:25', '1Z1FenoiCn', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(9, 'kand. Romy Corstiaens M', 'hdebruyn@smits.com', '$2y$10$HR2KA8ZpEYGKH2iadsK2h.g3rIaOWW2/bwHN.RvFuAblUD28ydEJm', '2022-12-05 16:08:25', 'LSncEPyVKB', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(10, 'kand. Micha van Rheineck LLM', 'akin.fabian@hotmail.nl', '$2y$10$b5fquUNgGWQyoQ6y3ke6KOH5t22KPwIqXlfAu.nSTg9SyPbsgyC3.', '2022-12-05 16:08:25', 'q742FKICmc', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(11, 'Wessel Rek', 'ueverde@vandenvelde.nl', '$2y$10$aQkouYXBpq8yKevc1/WMPufQrTcBwxmd1NrkoZHcg/piRJ50OVCJy', '2022-12-05 16:08:25', 'F8wv59v3H1', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(12, 'Jules Sahin', 'cpison@grinwisplaatstuitjes.nl', '$2y$10$DgWpPzwaWSPUDAjBZTKoqeJtszR2cGeh3jYnttiMQPqhNm//jUVxu', '2022-12-05 16:08:25', 'toreiMlS9t', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(13, 'Stan Janssen', 'wouter.holthuis@deboer.com', '$2y$10$QxujadwkSyFX7ObTgQyGIOFwvkGPTvvaTH6rZX1WLpqdZvBC/MqOG', '2022-12-05 16:08:25', 'nt240OV55R', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
-(14, 'Jayson Erhout', 'dvanderlinden@live.nl', '$2y$10$rVkFZSLKCdERez.YiLAH7.gtpXdJiOW1QcREJgmMP.FIg.NS7/vcO', '2022-12-05 16:08:25', 'zjgnhdio0E', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(15, 'Yusuf de Haan AD', 'edewerd@claesdr.net', '$2y$10$GTS13vw2mfhr4NDD/A5aJecsyc0MJHDW5C8pWs17nF.4Dhae3kIIS', '2022-12-05 16:08:25', 'Zgdxu28pWy', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(16, 'ing. Rosalie Hussein PhD', 'saar14@devries.org', '$2y$10$lgfjy6i1Y.PaTRBh9Sj9m.UlU6vv0CNlu46ySI3RciHfgkXnPZ1m.', '2022-12-05 16:08:25', 'ZBjket1GMQ', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(17, 'mr. Joep Timmermans', 'mismail@molenaar.net', '$2y$10$XCydD3X7pBpltRA26p89DekE2CT5J4XJwrar.WLU4WxXzjKKHdRra', '2022-12-05 16:08:25', 'HU01ZmMUlw', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(18, 'drs Rayan Kuijpers', 'robin.unal@live.nl', '$2y$10$6On7TP2a3woxRXUSBaNps.SScEApG9RbZM4hEML4pAEyTAlXkcnty', '2022-12-05 16:08:25', 'ZATpos1lwg', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(19, 'drs Loïs van Rossum AD', 'joep81@hotmail.nl', '$2y$10$I9w/U7BLVQc0O3tQrNU3uuhspesmgXjA/1wIAPxq2ygoeQ6ocMbLm', '2022-12-05 16:08:25', 'QdcI6AfH5F', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(20, 'Jason Badal', 'cgeerman@live.nl', '$2y$10$mmE3uqAvIdO8UZKvXIGPmeNW80NwmBGTcuvpB.Xnvmo3sDAndOOvW', '2022-12-05 16:08:25', '7sUYwjgQ6Y', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(21, 'ing. Amelia Lambers Msc', 'cmeyer@mahieu.net', '$2y$10$uWDUhbokvLW62UfR0wnjtO90Qth1If.TYPVfbHbxejAQphYnfmqaG', '2022-12-05 16:08:25', 'QHBr31LRol', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(22, 'Brent Massa Msc', 'nijman.jonas@scherms.com', '$2y$10$WxY9UQj149Me3H00dxL9MOt7E4aLQ4YCunX.7nPJpGEFudk3Eep0y', '2022-12-05 16:08:25', '6V1nvPNYSp', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
-(23, 'Elisabeth Bosman', 'morris.dekoning@vandenoever.com', '$2y$10$gtthdDpKI97i7uGx11w4nO0La009C2cD9ZrrFft4AwCsHXnHpkEXO', '2022-12-05 16:08:26', 'kzGucGcuoi', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26');
+INSERT INTO `users` (`id`, `role_id` ,`name`, `email`, `password`, `email_verified_at`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 0, 'RootMe', 'root@app.com', '$2y$10$64FD.srFXpwGUb2E1beTzuy/ZAa4Gnms4dQp2RxGtCVavIaVT1ZQW', '2022-12-05 16:08:24', 'v940UggXA7', NULL, '2022-12-05 16:08:24', '2022-12-05 16:08:24'),
+(2, 0, 'AdminMe', 'admin@app.com', '$2y$10$scmWMeGT9fEUZgjDZfJpr.DyEzlptAV.sT0j7nHQoEZnsiIOHYIZm', '2022-12-05 16:08:24', '8h61XsyPVH', NULL, '2022-12-05 16:08:24', '2022-12-05 16:08:24'),
+(3, 1, 'UserMe', 'user@app.com', '$2y$10$P4.iPbA3J8guos0o6IIjkeVCDsiDsoqXMQ5nT7VZlkV8UAHg/U9mi', '2022-12-05 16:08:25', 'uCjmeeBNBc', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(4, 2, 'ds. Noëlle van Doorn PhD', 'jonathan.middelkoop@yahoo.nl', '$2y$10$G9A7ZcIotHz1.2x.zSeXpecV9WhmXwyxVPLVOnf5M5LGGlEgh05P.', '2022-12-05 16:08:25', 'FJqr9nw4vx', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(5, 2, 'drs Tycho Vertooren LLB', 'hoelen.kyan@huijs.org', '$2y$10$MTDWmCzRCrMLDcbcMB7AD.BKrCBfS2LhLVRl1HebrRjMGLqoVXuPa', '2022-12-05 16:08:25', 'TUh41UY4Hn', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(6, 2, 'Beau Hanegraaff', 'demarduras.bilal@hotmail.nl', '$2y$10$ELm6X7vyjPPMDWTqh/TZ7ONGtXhSZuhfKItab1YZupO4917QzFBw6', '2022-12-05 16:08:25', 'Xb9pTIkyiQ', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(7, 2, 'Jennifer Bolkesteijn', 'arslan.mirthe@jansen.nl', '$2y$10$eTS7noa5DZ/k5F5UYtzWcuHVBfQZvNBy04aQvQNdxoEH11VTre7oe', '2022-12-05 16:08:25', 'AKiHCzoXaq', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(8, 2, 'Evi van der Meulen', 'rosalie28@gmail.com', '$2y$10$bn7zt9QgQUVm5fk71sgRLe9xq1SACY53ME8K/nxMxCTCbaH4ZlY4W', '2022-12-05 16:08:25', '1Z1FenoiCn', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(9, 2, 'kand. Romy Corstiaens M', 'hdebruyn@smits.com', '$2y$10$HR2KA8ZpEYGKH2iadsK2h.g3rIaOWW2/bwHN.RvFuAblUD28ydEJm', '2022-12-05 16:08:25', 'LSncEPyVKB', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(10, 2, 'kand. Micha van Rheineck LLM', 'akin.fabian@hotmail.nl', '$2y$10$b5fquUNgGWQyoQ6y3ke6KOH5t22KPwIqXlfAu.nSTg9SyPbsgyC3.', '2022-12-05 16:08:25', 'q742FKICmc', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(11, 2, 'Wessel Rek', 'ueverde@vandenvelde.nl', '$2y$10$aQkouYXBpq8yKevc1/WMPufQrTcBwxmd1NrkoZHcg/piRJ50OVCJy', '2022-12-05 16:08:25', 'F8wv59v3H1', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(12, 2, 'Jules Sahin', 'cpison@grinwisplaatstuitjes.nl', '$2y$10$DgWpPzwaWSPUDAjBZTKoqeJtszR2cGeh3jYnttiMQPqhNm//jUVxu', '2022-12-05 16:08:25', 'toreiMlS9t', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(13, 2, 'Stan Janssen', 'wouter.holthuis@deboer.com', '$2y$10$QxujadwkSyFX7ObTgQyGIOFwvkGPTvvaTH6rZX1WLpqdZvBC/MqOG', '2022-12-05 16:08:25', 'nt240OV55R', NULL, '2022-12-05 16:08:25', '2022-12-05 16:08:25'),
+(14, 2, 'Jayson Erhout', 'dvanderlinden@live.nl', '$2y$10$rVkFZSLKCdERez.YiLAH7.gtpXdJiOW1QcREJgmMP.FIg.NS7/vcO', '2022-12-05 16:08:25', 'zjgnhdio0E', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(15, 2, 'Yusuf de Haan AD', 'edewerd@claesdr.net', '$2y$10$GTS13vw2mfhr4NDD/A5aJecsyc0MJHDW5C8pWs17nF.4Dhae3kIIS', '2022-12-05 16:08:25', 'Zgdxu28pWy', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(16, 2, 'ing. Rosalie Hussein PhD', 'saar14@devries.org', '$2y$10$lgfjy6i1Y.PaTRBh9Sj9m.UlU6vv0CNlu46ySI3RciHfgkXnPZ1m.', '2022-12-05 16:08:25', 'ZBjket1GMQ', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(17, 2, 'mr. Joep Timmermans', 'mismail@molenaar.net', '$2y$10$XCydD3X7pBpltRA26p89DekE2CT5J4XJwrar.WLU4WxXzjKKHdRra', '2022-12-05 16:08:25', 'HU01ZmMUlw', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(18, 2, 'drs Rayan Kuijpers', 'robin.unal@live.nl', '$2y$10$6On7TP2a3woxRXUSBaNps.SScEApG9RbZM4hEML4pAEyTAlXkcnty', '2022-12-05 16:08:25', 'ZATpos1lwg', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(19, 2, 'drs Loïs van Rossum AD', 'joep81@hotmail.nl', '$2y$10$I9w/U7BLVQc0O3tQrNU3uuhspesmgXjA/1wIAPxq2ygoeQ6ocMbLm', '2022-12-05 16:08:25', 'QdcI6AfH5F', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(20, 2, 'Jason Badal', 'cgeerman@live.nl', '$2y$10$mmE3uqAvIdO8UZKvXIGPmeNW80NwmBGTcuvpB.Xnvmo3sDAndOOvW', '2022-12-05 16:08:25', '7sUYwjgQ6Y', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(21, 2, 'ing. Amelia Lambers Msc', 'cmeyer@mahieu.net', '$2y$10$uWDUhbokvLW62UfR0wnjtO90Qth1If.TYPVfbHbxejAQphYnfmqaG', '2022-12-05 16:08:25', 'QHBr31LRol', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(22, 2, 'Brent Massa Msc', 'nijman.jonas@scherms.com', '$2y$10$WxY9UQj149Me3H00dxL9MOt7E4aLQ4YCunX.7nPJpGEFudk3Eep0y', '2022-12-05 16:08:25', '6V1nvPNYSp', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26'),
+(23, 2, 'Elisabeth Bosman', 'morris.dekoning@vandenoever.com', '$2y$10$gtthdDpKI97i7uGx11w4nO0La009C2cD9ZrrFft4AwCsHXnHpkEXO', '2022-12-05 16:08:26', 'kzGucGcuoi', NULL, '2022-12-05 16:08:26', '2022-12-05 16:08:26');
 
 
 
@@ -1572,3 +1586,23 @@ INSERT INTO `product_parcel` (`parcel_id`, `product_id`, `amount`, `created_at`,
 (3197, 184, 2, '2021-12-16 20:38:41', '2021-12-16 20:38:41');
 
 -- --------------------------------------------------------
+)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:760
+    756▕         // If an exception occurs when attempting to run a query, we'll format the error
+    757▕         // message to include the bindings with SQL, which will make this exception a
+    758▕         // lot more helpful to the developer instead of just the database's errors.
+    759▕         catch (Exception $e) {
+  ➜ 760▕             throw new QueryException(
+    761▕                 $query, $this->prepareBindings($bindings), $e
+    762▕             );
+    763▕         }
+    764▕     }
+
+      [2m+7 vendor frames [22m
+  8   database/seeders/DatabaseSeeder.php:31
+      Illuminate\Support\Facades\Facade::__callStatic("unprepared")
+
+      [2m+23 vendor frames [22m
+  32  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))

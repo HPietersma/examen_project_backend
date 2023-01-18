@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProductsTableSeeder::class);
         // $this->call(ProductParcelTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
-        DB::unprepared(File::get(base_path('database/seeders/voedselbank_insertONLY.sql')));
+        DB::unprepared(File::get(base_path('database/seeders/voedselbank_insertONLY_aangepastRoles.sql')));
     }
 }

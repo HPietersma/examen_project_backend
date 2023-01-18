@@ -14,6 +14,14 @@ return new class extends Migration
     public function up()
     {
 
+         /**
+         * Table: rollen
+         */
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('rolnaam');
+        });
+
         /**
          * Table: users
          */
@@ -22,12 +30,18 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('email', 255)->unique();
             $table->string('password', 255);
+            // Dit is de slechte! ik weet niet of je hem default null en nullable mag zijn maar dat moet je zelf maar bepalen
+            //$table->string('role_id', 255);
+            $table->unsignedBigInteger('role_id')->default(NULL)->nullable();
 
             $table->timestamp('email_verified_at')->default(NULL)->nullable();
             $table->rememberToken();
 
             $table->timestamps();
             $table->softDeletes();
+
+            // extra toegevoegd: foreign key
+            $table->foreign('role_id')->references('id')->on('roles');
         });
 
 
