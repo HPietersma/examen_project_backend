@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Family;
+use App\Models\Product;
 
-class FamilyController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        return Family::all();
+        return Product::all();
     }
 
     /**
@@ -27,32 +27,20 @@ class FamilyController extends Controller
     public function store(Request $request)
     {
         $fields = $request->validate([
-            'familyname' => 'required|string',
-            'address' => 'required|string',
-            'homenr' => 'required|string',
-            'zipcode' => 'required|string',
-            'city' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|string',
-            'amountAdults' => 'required|string',
-            'amountChildren' => 'required|string',
-            'amountBabies' => 'required|string'
+            'name' => 'required|string',
+            'description' => 'string|nullable',
+            'category_id' => 'required|string',
+            'quantity_stock' => 'required|string'
         ]);
 
-        $family = Family::create([
-            'familyname' => $fields['familyname'],
-            'address' => $fields['address'],
-            'homenr' => $fields['homenr'],
-            'zipcode' => $fields['zipcode'],
-            'city' => $fields['city'],
-            'phone' => $fields['phone'],
-            'email' => $fields['email'],
-            'amountAdults' => $fields['amountAdults'],
-            'amountChildren' => $fields['amountChildren'],
-            'amountBabies' => $fields['amountBabies']
+        $product = Product::create([
+            'name' => $fields['name'],
+            'description' =>  $fields['description'],
+            'category_id' => $fields['category_id'],
+            'quantity_stock' => $fields['quantity_stock']
         ]);
 
-        return response($family, 201);
+        return response($product, 201);
     }
 
     /**
@@ -63,7 +51,7 @@ class FamilyController extends Controller
      */
     public function show($id)
     {
-        return Family::find($id);
+        return Product::find($id);
     }
 
     /**
@@ -76,19 +64,13 @@ class FamilyController extends Controller
     public function update(Request $request, $id)
     {
         $fields = $request->validate([
-            'familyname' => 'required|string',
-            'address' => 'required|string',
-            'homenr' => 'required|string',
-            'zipcode' => 'required|string',
-            'city' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|string',
-            'amountAdults' => 'required|string',
-            'amountChildren' => 'required|string',
-            'amountBabies' => 'required|string'
+            'name' => 'required|string',
+            'description' => 'string|nullable',
+            'category_id' => 'required|string',
+            'quantity_stock' => 'required|string'
         ]);
 
-        $record = Family::find($id);
+        $record = Product::find($id);
 
         if ($record) {
             $record->update($request->all());
@@ -109,7 +91,7 @@ class FamilyController extends Controller
      */
     public function destroy($id)
     {
-        $record = Family::find($id);
+        $record = Product::find($id);
 
         if ($record) {
             $record->delete();

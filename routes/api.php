@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\HTTP\Controllers\AuthController;
 use App\HTTP\Controllers\FamilyController;
+use App\HTTP\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
         route::apiResource('klanten', FamilyController::class);
-    
+
 
 
 
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS MAGAZIJNMEDEWERKER OF HOGER
     Route::group(['middleware' => ['isMagazijnmedewerker']], function() {
-
+        route::apiResource('products', ProductController::class);
 
 
     });
