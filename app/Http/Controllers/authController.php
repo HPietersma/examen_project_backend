@@ -16,25 +16,27 @@ class AuthController extends Controller
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'role_id' => 'required|string',
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
+            'password' => bcrypt($fields['password']),
+            'role_id' => $fields['role_id'],
         ]);
 
 
-        if ($user->role_id == 0) {
+        if ($user->role_id == 1) {
             $token = $user->createToken('token', ['directie', 'magazijnmedewerker', 'vrijwilliger'])->plainTextToken;
         }
 
-        if ($user->role_id == 1) {
+        if ($user->role_id == 2) {
             $token = $user->createToken('token', ['magazijnmedewerker'])->plainTextToken;
         }
 
-        if ($user->role_id == 2) {
+        if ($user->role_id == 3) {
             $token = $user->createToken('token', ['vrijwilliger'])->plainTextToken;
         }
 

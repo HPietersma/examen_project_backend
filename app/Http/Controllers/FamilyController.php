@@ -34,9 +34,9 @@ class FamilyController extends Controller
             'city' => 'required|string',
             'phone' => 'required|string',
             'email' => 'required|string',
-            'amountAdults' => 'required|string',
-            'amountChildren' => 'required|string',
-            'amountBabies' => 'required|string'
+            'amountAdults' => 'required|int',
+            'amountChildren' => 'required|int',
+            'amountBabies' => 'required|int'
         ]);
 
         $family = Family::create([
@@ -83,9 +83,9 @@ class FamilyController extends Controller
             'city' => 'required|string',
             'phone' => 'required|string',
             'email' => 'required|string',
-            'amountAdults' => 'required|string',
-            'amountChildren' => 'required|string',
-            'amountBabies' => 'required|string'
+            'amountAdults' => 'required|int',
+            'amountChildren' => 'required|int',
+            'amountBabies' => 'required|int'
         ]);
 
         $record = Family::find($id);
