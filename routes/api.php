@@ -22,7 +22,7 @@ Route::post('register', [AuthController::class, 'register']);
 
 
 
-// VOLGENDE ROUTES KUNNEN ALLEEN WORDEMN BENADERT WANNEER ER INGELOGD IS 
+// VOLGENDE ROUTES KUNNEN ALLEEN WORDEMN BENADERT WANNEER ER INGELOGD IS
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
 
@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
-    
+        Route::get('parcels', [parcelController::class, 'parcels']);
 
 
 
@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS MAGAZIJNMEDEWERKER OF HOGER
     Route::group(['middleware' => ['isMagazijnmedewerker']], function() {
-    
+
 
 
 
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF HOGER
     Route::group(['middleware' => ['isVrijwilliger']], function() {
-    
+
 
 
 

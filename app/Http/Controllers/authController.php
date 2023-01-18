@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         $fields = $request->validate([
             'email' => 'required|string',
-            'password' => 'required|string' 
+            'password' => 'required|string'
         ]);
 
         $user = User::Where('email', $fields['email'])->first();
@@ -95,7 +95,7 @@ class AuthController extends Controller
 
     }
 
-    
+
     public function logout(Request $request) {
         $request->user()->tokens()->delete();
 
