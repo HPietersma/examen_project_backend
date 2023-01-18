@@ -1,6 +1,6 @@
 
 
-INSERT INTO `roles` (`id`, `rolnaam`) VALUES
+INSERT INTO `roles` (`id`, `role_name`) VALUES
 (1, 'directie'),
 (2, 'medewerker'),
 (3, 'vrijwilliger');
