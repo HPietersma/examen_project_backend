@@ -123,4 +123,20 @@ class FamilyController extends Controller
             ], 404); 
         }
     }
+
+    public function restore($id) {
+        $record = Family::where('id', $id)->withTrashed();
+
+        if ($record) {
+            $record->restore();
+            return response([
+                'message'=>'record restored'
+            ], 200);
+        }
+        else {
+            return response([
+                'message'=>'record not found'
+            ], 404); 
+        }
+    }
 }

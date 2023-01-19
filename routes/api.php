@@ -8,6 +8,7 @@ use App\HTTP\Controllers\FamilyController;
 use App\HTTP\Controllers\ProductController;
 use App\HTTP\Controllers\CategoryController;
 use App\HTTP\Controllers\SupplierController;
+use App\HTTP\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::group(['middleware' => ['isDirectie']], function() {
         Route::get('parcels', [parcelController::class, 'parcels']);
         Route::apiResource('klanten', FamilyController::class);
+        Route::get('restoreKlant/{id}', [FamilyController::class, 'restore']);
+        Route::apiResource('users', UserController::class);
+        Route::get('restoreUser/{id}', [UserController::class, 'restore']);
 
 
 
