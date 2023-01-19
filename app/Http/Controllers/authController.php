@@ -17,7 +17,7 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed',
-            'role_id' => 'required|string',
+            'role_id' => 'required|int',
         ]);
 
         $user = User::create([
@@ -44,7 +44,6 @@ class AuthController extends Controller
         $user['role'] = $role->role_name;
 
         $response = [
-            'user_id'=>$user->id,
             'user' => $user->name,
             'email' => $user->email,
             'role_id' => $user->role_id,
@@ -71,7 +70,7 @@ class AuthController extends Controller
         }
 
         if ($user->role_id == 1) {
-            $token = $user->createToken('token', ['directie', 'magazijnmedewerker', 'vrijwilliger'])->plainTextToken;
+            $token = $user->createToken('token', ['directie'])->plainTextToken;
         }
 
         if ($user->role_id == 2) {
@@ -87,7 +86,6 @@ class AuthController extends Controller
         $user['role'] = $role->role_name;
 
         $response = [
-            'user_id'=>$user->id,
             'user' => $user->name,
             'email' => $user->email,
             'role_id' => $user->role_id,
@@ -110,27 +108,13 @@ class AuthController extends Controller
 
 
     public function authToken(Request $request) {
+        $user =  $request->user();
 
-        if ($request->user()) {
-            $user =  $request->user();
+        $role = Role::where('id', $user->role_id)->get('role_name')->first();
+        $user['role'] = $role->role_name;
 
-            $role = Role::where('id', $user->role_id)->get('role_name')->first();
-            $user['role'] = $role->role_name;
-
-            $response = [
-                'user_id'=>$user->id,
-                'user' => $user->name,
-                'email' => $user->email,
-                'role_id' => $user->role_id,
-                'role' => $user->role,
-            ];
-
-            return response($response, 200);
-        }
-        else {
-            return response([
-                'message'=>'user not found'
-            ],404);
-        }
+        return response([
+            'user' => $user
+        ], 200);
     }
 }
