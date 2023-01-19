@@ -5,10 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Supplier;
+use App\Models\Supplier_Product;
+use App\Models\Product;
 
 
 class SupplierController extends Controller
 {
+    public function suppliersWithProducts() {
+        return Supplier::with('Supplier_Product')->get();
+    }
+
+    public function supplierWithProducts($id) {
+        return Supplier::where('id', $id)->with('Supplier_Product')->get();
+    }
+
+
     /**
      * Display a listing of the resource.
      *

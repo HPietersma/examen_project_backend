@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
         Route::get('parcels', [parcelController::class, 'parcels']);
-        route::apiResource('klanten', FamilyController::class);
+        Route::apiResource('klanten', FamilyController::class);
 
 
 
@@ -45,9 +45,12 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS MAGAZIJNMEDEWERKER OF DIRECTIE
     Route::group(['middleware' => ['isMagazijnmedewerker']], function() {
-        route::apiResource('products', ProductController::class);
-        route::apiResource('categories', CategoryController::class);
-        route::apiResource('suppliers', SupplierController::class);
+        Route::apiResource('products', ProductController::class);
+        Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('suppliers', SupplierController::class);
+        Route::get('suppliersWithProducts', [SupplierController::class, 'suppliersWithProducts']);
+        Route::get('supplierWithProducts/{id}', [SupplierController::class, 'supplierWithProducts']);
+
 
 
     });

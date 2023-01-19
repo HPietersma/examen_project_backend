@@ -14,4 +14,8 @@ class Supplier extends Model
         'last_delivery',
         'next_delivery'
     ];
+
+    public function Supplier_Product() {
+        return $this->belongsToMany(Product::class, 'supplier_product');
+    }
 }
