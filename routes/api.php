@@ -7,6 +7,7 @@ use App\HTTP\Controllers\AuthController;
 use App\HTTP\Controllers\FamilyController;
 use App\HTTP\Controllers\ProductController;
 use App\HTTP\Controllers\CategoryController;
+use App\HTTP\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::group(['middleware' => ['isMagazijnmedewerker']], function() {
         route::apiResource('products', ProductController::class);
         route::apiResource('categories', CategoryController::class);
+        route::apiResource('suppliers', SupplierController::class);
 
 
     });
