@@ -32,8 +32,8 @@ class FamilyController extends Controller
             'homenr' => 'required|string',
             'zipcode' => 'required|string',
             'city' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|string',
+            'phone' => 'required|string|unique:families,phone',
+            'email' => 'required|string|unique:families,email',
             'amountAdults' => 'required|int',
             'amountChildren' => 'required|int',
             'amountBabies' => 'required|int'
@@ -81,8 +81,8 @@ class FamilyController extends Controller
             'homenr' => 'required|string',
             'zipcode' => 'required|string',
             'city' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|string',
+            'phone' => 'required|string|unique:families,phone',
+            'email' => 'required|string|unique:families,email',
             'amountAdults' => 'required|int',
             'amountChildren' => 'required|int',
             'amountBabies' => 'required|int'

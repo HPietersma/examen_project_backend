@@ -15,4 +15,8 @@ class Product extends Model
         'category_id',
         'quantity_stock',
     ];
+
+    public function categories() {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
 }

@@ -59,7 +59,7 @@ return new class extends Migration
             $table->string('phone', 255)->default(NULL)->nullable();
             $table->string('email', 255)->default(NULL)->nullable();
 
-            $table->integer('amountAldults')->default(NULL)->nullable();
+            $table->integer('amountAdults')->default(NULL)->nullable();
             $table->integer('amountChildren')->default(NULL)->nullable();
             $table->integer('amountBabies')->default(NULL)->nullable();
 

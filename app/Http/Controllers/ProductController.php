@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return Product::with('categories')->get();
     }
 
     /**
@@ -29,8 +30,8 @@ class ProductController extends Controller
         $fields = $request->validate([
             'name' => 'required|string',
             'description' => 'string|nullable',
-            'category_id' => 'required|string',
-            'quantity_stock' => 'required|string'
+            'category_id' => 'required|int',
+            'quantity_stock' => 'required|int'
         ]);
 
         $product = Product::create([
@@ -66,8 +67,8 @@ class ProductController extends Controller
         $fields = $request->validate([
             'name' => 'required|string',
             'description' => 'string|nullable',
-            'category_id' => 'required|string',
-            'quantity_stock' => 'required|string'
+            'category_id' => 'required|int',
+            'quantity_stock' => 'required|int'
         ]);
 
         $record = Product::find($id);
