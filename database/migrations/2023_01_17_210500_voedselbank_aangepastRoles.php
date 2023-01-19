@@ -30,9 +30,8 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('email', 255)->unique();
             $table->string('password', 255);
-            // Dit is de slechte! ik weet niet of je hem default null en nullable mag zijn maar dat moet je zelf maar bepalen
-            //$table->string('role_id', 255);
-            $table->unsignedBigInteger('role_id')->default(NULL)->nullable();
+
+            $table->unsignedBigInteger('role_id')->default(1);
 
             $table->timestamp('email_verified_at')->default(NULL)->nullable();
             $table->rememberToken();
@@ -59,7 +58,7 @@ return new class extends Migration
             $table->string('phone', 255)->default(NULL)->nullable();
             $table->string('email', 255)->default(NULL)->nullable();
 
-            $table->integer('amountAldults')->default(NULL)->nullable();
+            $table->integer('amountAdults')->default(NULL)->nullable();
             $table->integer('amountChildren')->default(NULL)->nullable();
             $table->integer('amountBabies')->default(NULL)->nullable();
 
@@ -75,9 +74,11 @@ return new class extends Migration
 
             $table->unsignedBigInteger('family_id')->default(NULL)->nullable();
             $table->unsignedBigInteger('user_id')->default(NULL)->nullable();
+            $table->date('collected_at')->default(NULL)->nullable();
 
             $table->timestamps();
 
+            $table->foreign('collected_at')->references('collected_at')->on('families');
             $table->foreign('family_id')->references('id')->on('families');
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -113,6 +114,13 @@ return new class extends Migration
 
             $table->foreign('parcel_id')->references('id')->on('parcels');
             $table->foreign('product_id')->references('id')->on('products');
+        });
+
+
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+
+            $table->unsignedBigInteger('content');
         });
     }
 

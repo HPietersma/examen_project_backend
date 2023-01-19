@@ -16,25 +16,27 @@ class AuthController extends Controller
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'role_id' => 'required|int'
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
+            'password' => bcrypt($fields['password']),
+            'role_id' => $fields['role_id']
         ]);
 
 
-        if ($user->role_id == 0) {
-            $token = $user->createToken('token', ['directie', 'magazijnmedewerker', 'vrijwilliger'])->plainTextToken;
-        }
-
         if ($user->role_id == 1) {
-            $token = $user->createToken('token', ['magazijnmedewerker'])->plainTextToken;
+            $token = $user->createToken('token', ['directie'])->plainTextToken;
         }
 
         if ($user->role_id == 2) {
+            $token = $user->createToken('token', ['magazijnmedewerker'])->plainTextToken;
+        }
+
+        if ($user->role_id == 3) {
             $token = $user->createToken('token', ['vrijwilliger'])->plainTextToken;
         }
 
@@ -42,7 +44,6 @@ class AuthController extends Controller
         $user['role'] = $role->role_name;
 
         $response = [
-            'user_id'=>$user->id,
             'user' => $user->name,
             'email' => $user->email,
             'role_id' => $user->role_id,
@@ -69,7 +70,7 @@ class AuthController extends Controller
         }
 
         if ($user->role_id == 1) {
-            $token = $user->createToken('token', ['directie', 'magazijnmedewerker', 'vrijwilliger'])->plainTextToken;
+            $token = $user->createToken('token', ['directie'])->plainTextToken;
         }
 
         if ($user->role_id == 2) {
@@ -85,7 +86,6 @@ class AuthController extends Controller
         $user['role'] = $role->role_name;
 
         $response = [
-            'user_id'=>$user->id,
             'user' => $user->name,
             'email' => $user->email,
             'role_id' => $user->role_id,
@@ -108,27 +108,13 @@ class AuthController extends Controller
 
 
     public function authToken(Request $request) {
+        $user =  $request->user();
 
-        if ($request->user()) {
-            $user =  $request->user();
+        $role = Role::where('id', $user->role_id)->get('role_name')->first();
+        $user['role'] = $role->role_name;
 
-            $role = Role::where('id', $user->role_id)->get('role_name')->first();
-            $user['role'] = $role->role_name;
-
-            $response = [
-                'user_id'=>$user->id,
-                'user' => $user->name,
-                'email' => $user->email,
-                'role_id' => $user->role_id,
-                'role' => $user->role,
-            ];
-
-            return response($response, 200);
-        }
-        else {
-            return response([
-                'message'=>'user not found'
-            ],404);
-        }
+        return response([
+            'user' => $user
+        ], 200);
     }
 }

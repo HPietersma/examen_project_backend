@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\HTTP\Controllers\AuthController;
 use App\HTTP\Controllers\FamilyController;
+use App\Http\Controllers\ParcelController;
 use App\HTTP\Controllers\ProductController;
 
 /*
@@ -33,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
-        Route::get('parcels', [parcelController::class, 'parcels']);
+        route::apiResource('parcels', ParcelController::class);
         route::apiResource('klanten', FamilyController::class);
 
 
