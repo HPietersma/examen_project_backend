@@ -81,8 +81,8 @@ class FamilyController extends Controller
             'homenr' => 'required|string',
             'zipcode' => 'required|string',
             'city' => 'required|string',
-            'phone' => 'required|string|unique:families,phone',
-            'email' => 'required|string|unique:families,email',
+            'phone' => 'required|string',
+            'email' => 'required|string',
             'amountAdults' => 'required|int',
             'amountChildren' => 'required|int',
             'amountBabies' => 'required|int'
