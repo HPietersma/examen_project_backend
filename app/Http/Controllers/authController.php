@@ -70,7 +70,7 @@ class AuthController extends Controller
         }
 
         if ($user->role_id == 1) {
-            $token = $user->createToken('token', ['directie'])->plainTextToken;
+            $token = $user->createToken('token', ['directie', 'magazijnmedewerker', 'vrijwilliger'])->plainTextToken;
         }
 
         if ($user->role_id == 2) {
