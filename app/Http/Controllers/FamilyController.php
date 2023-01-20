@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Family;
 
@@ -61,9 +62,19 @@ class FamilyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        return Family::find($id);
+        $family = array();
+
+        $id = $request->family_id;
+
+        $family_info = Family::find($id);
+
+        $parcel = DB::table('parcels')->where('family_id', $id)->get()->sortbydesc('created_at');
+
+        array_push($family, $family_info, $parcel);
+
+        return $family;
     }
 
     /**
@@ -120,7 +131,7 @@ class FamilyController extends Controller
         else {
             return response([
                 'message'=>'record not found'
-            ], 404); 
+            ], 404);
         }
     }
 
@@ -136,7 +147,7 @@ class FamilyController extends Controller
         else {
             return response([
                 'message'=>'record not found'
-            ], 404); 
+            ], 404);
         }
     }
 }
