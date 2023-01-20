@@ -68,7 +68,9 @@ class FamilyController extends Controller
 
         $id = $request->family_id;
 
-        $family_info = Family::find($id);
+        $family_info = Family::findOr($id, fn () => response([
+            'record not found'
+        ], 404));
 
         $parcel = DB::table('parcels')->where('family_id', $id)->get()->sortbydesc('created_at');
 
