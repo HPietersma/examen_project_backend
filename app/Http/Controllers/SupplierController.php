@@ -61,7 +61,9 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        return Product::find($id);
+        return Supplier::findOr($id, fn () => response([
+            'record not found'
+        ], 404));
     }
 
     /**

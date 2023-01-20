@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 
@@ -26,7 +27,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|confirmed',
+            'role_id' => 'required|int',
+        ]);
+
+        return User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']),
+            'role_id' => $fields['role_id'],
+        ]);
     }
 
     /**
@@ -37,7 +50,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::find($id);
+        return User::findOr($id, fn () => response([
+            'record not found'
+        ], 404));
     }
 
     /**
@@ -49,7 +64,40 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        {
+            $fields = $request->validate([
+                'name' => 'required|string',
+                'email' => 'required|string',
+                'password' => 'required|string',
+                'role_id' => 'required|int',
+            ]);
+
+            $password;
+            if (Hash::needsRehash($request->password)) {
+                $password = Hash::make($request->password);
+            }
+            else {
+                $password = $request->password;
+            }
+    
+            $record = User::find($id);
+    
+            if ($record) {
+                $record->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $password,
+                    'role_id' => $request->role_id
+
+                ]);
+                return response($record, 200);
+            }
+            else {
+                return response([
+                    'message'=>'record not found'
+                ], 404);
+            }
+        }
     }
 
     /**
