@@ -16,6 +16,20 @@ class ParcelController extends Controller
     {
         $parcels = DB::table('parcels')->get();
 
+        foreach($parcels as $parcel) { // foreach parcel
+            $parcel_items = DB::table('product_parcel')->where('parcel_id', $parcel->id)->get();
+            foreach($parcel_items as $parcel_item) {
+                $product = DB::table('products')->where('id', $parcel_item->product_id)->first();
+                $parcel_item->category = DB::table('categories')->where('id', $product->category_id)->first()->category;
+                $parcel_item->name = $product->name;
+            }
+            $parcel->created_at = date('d-m-Y H:i', strtotime($parcel->created_at));
+            $parcel->user_name = DB::table('users')->where('id', $parcel->user_id)->first()->name;
+            $parcel->family_name = DB::table('families')->where('id', $parcel->family_id)->first()->familyname;
+            $parcel->products = $parcel_items;
+            unset($parcel->updated_at);
+        }
+
         return $parcels;
     }
 
