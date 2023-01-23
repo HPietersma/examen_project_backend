@@ -40,15 +40,14 @@ class ParcelController extends Controller
         }
 
         if (Parcel::where([
-            ['family_id', '=', '1'],
-            ['created_at', '>', Carbon::now()->subDays(5)]
+                ['family_id', '=', '1'],
+                ['created_at', '>', Carbon::now()->subDays(5)]
             ])->get()
         ) {
             return response([
                 'message' => 'Deze klant is al aan een pakket gekoppelt.'
             ], 403);
         }
-
 
 
         $parcel_id = [];
