@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -105,7 +106,18 @@ class ProductController extends Controller
         else {
             return response([
                 'message'=>'record not found'
-            ], 404); 
+            ], 404);
         }
+    }
+
+    public function products()
+    {
+        $products = DB::table('products')->get(
+        'name',
+        'category_id',
+        'quantity_stock'
+        );
+
+
     }
 }

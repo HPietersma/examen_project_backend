@@ -33,7 +33,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'authToken']);
-    Route::post('updatepassword', [UserController::class, 'updatepassword']);
+    Route::post('updateuser', [UserController::class, 'updateuser']);
     Route::apiResource('roles', RoleController::class);
 
 
@@ -45,9 +45,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
         Route::apiResource('users', UserController::class);
         Route::get('restoreUser/{id}', [UserController::class, 'restore']);
         route::apiResource('parcels', ParcelController::class);
-
-
-
+        Route::get('products', [ProductController::class, 'products']);
 
 
     });

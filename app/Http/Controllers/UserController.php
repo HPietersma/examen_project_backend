@@ -74,10 +74,10 @@ class UserController extends Controller
     {
 
             $fields = $request->validate([
-                'name' => 'required|string',
-                'email' => 'required|string',
-                'password' => 'required|string',
-                'role_id' => 'required|int',
+                'name' => 'string',
+                'email' => 'string',
+                'password' => 'string',
+                'role_id' => 'int',
             ]);
 
             if (Hash::needsRehash($request->password)) {
@@ -90,13 +90,10 @@ class UserController extends Controller
             $record = User::find($id);
 
             if ($record) {
-                $record->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => $password,
-                    'role_id' => $request->role_id
-
-                ]);
+                if($request->input('name')) { $record->update(['name' => $request->name]); }
+                if($request->input('email')) { $record->update(['email' => $request->email]); }
+                if($request->input('password')) { $record->update(['password' => $password]); }
+                if($request->input('role_id')) { $record->update(['role_id' => $request->role_id]); }
                 return response($record, 200);
             }
             else {
@@ -106,17 +103,19 @@ class UserController extends Controller
             }
     }
 
-    public function updatepassword(Request $request)
+    public function updateuser(Request $request)
     {
         // haalt data van ingelogde gebruiker op
        $user = Auth::user();
         // aan te passen data ophalen
         $update = $request->validate([
-            'email' => 'required|string',
-            'old_password' => 'required|string',
-            'new_password' => 'required|string|different:password',
+            'name' => 'string',
+            'email' => 'string',
+            'old_password' => 'string',
+            'new_password' => 'string|different:old_password',
         ]);
         //oud wachtwoord matchen
+
             if (Hash::check($update['old_password'], $user['password'])) {
                 $password = Hash::make($update['new_password']);
             }
@@ -130,10 +129,9 @@ class UserController extends Controller
             $record = User::find($user['id']);
             //opgegeven records wijzigen
             if ($record) {
-                $record->update([
-                    'email' => $update['email'],
-                    'password' => $password,
-                ]);
+                if($request->input('name')) { $record->update(['name' => $request->name]); }
+                if($request->input('email')) { $record->update(['email' => $request->email]); }
+                if($request->input('password')) { $record->update(['password' => $password]); }
                 return response($record, 200);
             }
     }
