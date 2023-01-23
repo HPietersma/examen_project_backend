@@ -63,7 +63,9 @@ class FamilyController extends Controller
      */
     public function show($id)
     {
-        return Family::find($id);
+        return Family::findOr($id, fn () => response([
+            'record not found'
+        ], 404));
     }
 
     /**

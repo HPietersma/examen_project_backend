@@ -52,7 +52,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::find($id);
+        return Product::findOr($id, fn () => response([
+            'record not found'
+        ], 404));
     }
 
     /**
