@@ -18,7 +18,7 @@ class isDirectie
     {
         if (!$request->user()->currentAccessToken()->can('directie')) {
             return response([
-                "message" => "Unautherized."
+                "message" => "Unauthorized."
             ], 401);
         }
 
