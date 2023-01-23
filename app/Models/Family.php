@@ -23,4 +23,9 @@ class Family extends Model
         'amountBabies',
         'deleted_at',
     ];
+
+    public function parcels() {
+        return $this->hasMany(Parcel::class, 'family_id', 'id');
+    }
+
 }

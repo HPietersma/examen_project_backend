@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Models\Family;
+use App\Models\Parcel;
 
 class FamilyController extends Controller
 {
@@ -140,5 +142,18 @@ class FamilyController extends Controller
                 'message'=>'record not found'
             ], 404); 
         }
+    }
+
+    public function familiesWithoutParcel() {
+        // return Family::with('parcels')
+        // ->whereHas('parcels', function($q) {
+        //     $q->where('id', '=', 2);
+        // })
+        // ->get();
+
+        return Family::doesntHave('parcels')->orWhereHas('parcels', function($q) {
+            $q->where('created_at', '<', Carbon::now()->subDays(1));
+        })
+        ->get();
     }
 }

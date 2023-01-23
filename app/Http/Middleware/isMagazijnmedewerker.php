@@ -18,7 +18,7 @@ class isMagazijnmedewerker
     {
         if (!$request->user()->currentAccessToken()->can('magazijnmedewerker')) {
             return response([
-                "message" => "Unautherized."
+                "message" => "Unauthorized."
             ], 401);
         }
 

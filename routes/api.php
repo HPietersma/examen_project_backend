@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF DIRECTIE
     Route::group(['middleware' => ['isVrijwilliger']], function() {
-
+        Route::get('familiesWithoutParcel', [FamilyController::class, 'familiesWithoutParcel']);
 
 
 
