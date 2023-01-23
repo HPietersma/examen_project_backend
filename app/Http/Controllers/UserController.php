@@ -72,7 +72,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
             $fields = $request->validate([
                 'name' => 'string',
                 'email' => 'string',
@@ -114,26 +113,27 @@ class UserController extends Controller
             'old_password' => 'string',
             'new_password' => 'string|different:old_password',
         ]);
-        //oud wachtwoord matchen
 
+        //oud wachtwoord matchen
+        if(isset($update['old_password']) && isset($update['new_password'])) {
             if (Hash::check($update['old_password'], $user['password'])) {
                 $password = Hash::make($update['new_password']);
             }
-
             else{
                 return response([
                     'message'=>'Passwords do not match or are identical'
                 ], 400);
             }
-
-            $record = User::find($user['id']);
-            //opgegeven records wijzigen
-            if ($record) {
-                if($request->input('name')) { $record->update(['name' => $request->name]); }
-                if($request->input('email')) { $record->update(['email' => $request->email]); }
-                if($request->input('password')) { $record->update(['password' => $password]); }
-                return response($record, 200);
-            }
+        }
+            
+        $record = User::where('id', $user['id'])->first();
+        //opgegeven records wijzigen
+        if ($record) {
+            if($request->input('name')) { $record->update(['name' => $request->name]); }
+            if($request->input('email')) { $record->update(['email' => $request->email]); }
+            if($request->input('new_password')) { $record->update(['password' => $password]); }
+            return response($record, 200);
+        }
     }
 
     /**
