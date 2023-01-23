@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
+use App\Models\Parcel;
+
 
 class ParcelController extends Controller
 {
@@ -34,6 +38,18 @@ class ParcelController extends Controller
                 'message'=>'Familie bestaat niet'
             ], 500);
         }
+
+        if (Parcel::where([
+            ['family_id', '=', '1'],
+            ['created_at', '>', Carbon::now()->subDays(5)]
+            ])->get()
+        ) {
+            return response([
+                'message' => 'Deze klant is al aan een pakket gekoppelt.'
+            ], 403);
+        }
+
+
 
         $parcel_id = [];
         // check if product can be added to parcel
