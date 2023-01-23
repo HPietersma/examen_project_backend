@@ -10,6 +10,7 @@ use App\HTTP\Controllers\ProductController;
 use App\HTTP\Controllers\CategoryController;
 use App\HTTP\Controllers\SupplierController;
 use App\HTTP\Controllers\UserController;
+use App\HTTP\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'authToken']);
+    Route::apiResource('roles', RoleController::class);
 
 
 
