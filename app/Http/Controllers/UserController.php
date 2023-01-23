@@ -74,34 +74,52 @@ class UserController extends Controller
             $fields = $request->validate([
                 'name' => 'required|string',
                 'email' => 'required|string',
-                'password' => 'required|string',
+                'password' => 'nullable|string',
                 'role_id' => 'required|int',
             ]);
 
-            $password;
-            if (Hash::needsRehash($request->password)) {
-                $password = Hash::make($request->password);
+            if ($request->password) {
+                $password;
+                if (Hash::needsRehash($request->password)) {
+                    $password = Hash::make($request->password);
+                }
+                else {
+                    $password = $request->password;
+                }
+        
+                $record = User::find($id);
+        
+                if ($record) {
+                    $record->update([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'password' => $password,
+                        'role_id' => $request->role_id
+                    ]);
+                    return response($record, 200);
+                }
+                else {
+                    return response([
+                        'message'=>'record not found'
+                    ], 404);
+                }
             }
             else {
-                $password = $request->password;
-            }
-    
-            $record = User::find($id);
-    
-            if ($record) {
-                $record->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => $password,
-                    'role_id' => $request->role_id
-
-                ]);
-                return response($record, 200);
-            }
-            else {
-                return response([
-                    'message'=>'record not found'
-                ], 404);
+                $record = User::find($id);
+        
+                if ($record) {
+                    $record->update([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'role_id' => $request->role_id
+                    ]);
+                    return response($record, 200);
+                }
+                else {
+                    return response([
+                        'message'=>'record not found'
+                    ], 404);
+                }
             }
         }
     }
