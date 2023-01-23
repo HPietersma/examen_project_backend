@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return User::with('role')->get();
     }
 
     /**
@@ -50,9 +51,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::findOr($id, fn () => response([
+        $user = User::findOr($id, fn () => response([
             'record not found'
         ], 404));
+
+        $role = Role::where('id', $user->role_id)->get('role_name')->first();
+        $user['role'] = $role->role_name;
+
+        return $user;
     }
 
     /**
