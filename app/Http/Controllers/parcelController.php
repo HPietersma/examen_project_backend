@@ -27,49 +27,56 @@ class ParcelController extends Controller
      */
     public function store(Request $request)
     {
-
-         //Voorbeeld hoe de array er uit moet zien
-
-        $products = array(
-        array(
-           ['id' => '2', 'quantity' => '3'],
-           ['id' => '5', 'quantity' => '2']
-            ),
-            'family_id' => '6',
-            'user_id' => '27'
-        );
+        // check if family exists
+        if(DB::table('families')->where('id', $request->input('family_id'))->doesntExist())
+        {
+            return response([
+                'message'=>'Familie bestaat niet'
+            ], 500);
+        }
 
         $parcel_id = [];
-        // $producten = $request->productenlijst;
+        // check if product can be added to parcel
+        foreach($request->input('products') as $product){
+            $productname = DB::table('products')
+            ->where('id', $product['id'])
+            ->first('name');
 
-        foreach($products['0'] as $product){
-        $productname = DB::table('products')
-        ->where('id', $product['id'])
-        ->get('name');
-
-        $quantity = DB::table('products')->where('id', $product['id'])->get('quantity_stock');
-
-            if($product['quantity'] > $quantity)
+            $quantity = DB::table('products')->where('id', $product['id'])->first();
+            if($product['quantity'] > $quantity->quantity_stock)
             {
                 return response([
-                    'message'=>'Er is niet genoeg voorraad van' ($productname)
+                    'message'=>'Er is niet genoeg voorraad van: ' . $productname->name
                 ], 500);
             }
             else(
                 DB::table('products')->where('id', $product['id'])->decrement('quantity_stock', $product['quantity'])
             );
         }
-            $parcel_id = DB::table('parcels')->insertGetId
-            (
-                ['family_id' => $products['family_id'], 'user_id' => $products['user_id']]
-            );
-            foreach($products['0'] as $product){
-                DB::table('product_parcel')->insert([
-                    'amount' => $product['quantity'],
-                    'parcel_id' => $parcel_id,
-                    'product_id' => $product['id']
-                ]);
+
+        // Create new parcel so products van de added (returns id)
+        $parcel_id = DB::table('parcels')->insertGetId([
+            'family_id' => $request->input('family_id'),
+            'user_id' => $request->user()->id
+        ]);
+
+        // add products to parcel.
+        foreach($request->input('products') as $product){
+            $bool = DB::table('product_parcel')->insert([
+                'amount' => $product['quantity'],
+                'parcel_id' => $parcel_id,
+                'product_id' => $product['id']
+            ]);
+            if(!$bool) {
+                return response([
+                    'message'=>'Kan product met id: '. $product['id'] . ' niet toevoegen aan pakket'
+                ], 500);
             }
+        }
+        
+        return response ([
+            'message' => 'Pakket is aangemaakt'
+        ], 200);
     }
 
     /**
