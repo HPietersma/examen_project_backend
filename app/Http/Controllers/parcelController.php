@@ -42,7 +42,7 @@ class ParcelController extends Controller
         // $producten = $request->productenlijst;
 
         foreach($products['0'] as $product){
-        $productname = DB::table('products') //product ID gebruiken om productnaam op te zoeken
+        $productname = DB::table('products') //product ID gebruiken om productnaam te matchen
         ->where('id', $product['id'])
         ->get('name');
 
@@ -71,8 +71,8 @@ class ParcelController extends Controller
                 ]);
             }
             return response([
-                'message'=>'jow'
-            ], 400);
+                'message'=>'Parcel added'
+            ], 200);
     }
 
     /**
