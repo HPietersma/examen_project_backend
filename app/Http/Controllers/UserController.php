@@ -95,7 +95,6 @@ class UserController extends Controller
                         'email' => $request->email,
                         'password' => $password,
                         'role_id' => $request->role_id
-
                     ]);
                     return response($record, 200);
                 }
@@ -112,9 +111,7 @@ class UserController extends Controller
                     $record->update([
                         'name' => $request->name,
                         'email' => $request->email,
-                        'password' => $password,
                         'role_id' => $request->role_id
-
                     ]);
                     return response($record, 200);
                 }
