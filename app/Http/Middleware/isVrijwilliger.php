@@ -18,7 +18,7 @@ class isVrijwilliger
     {
         if (!$request->user()->currentAccessToken()->can('vrijwilliger')) {
             return response([
-                "message" => "Unautherized."
+                "message" => "Unauthorized."
             ], 401);
         }
 

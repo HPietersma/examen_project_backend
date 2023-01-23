@@ -10,6 +10,7 @@ use App\HTTP\Controllers\ProductController;
 use App\HTTP\Controllers\CategoryController;
 use App\HTTP\Controllers\SupplierController;
 use App\HTTP\Controllers\UserController;
+use App\HTTP\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'authToken']);
     Route::post('updatepassword', [UserController::class, 'updatepassword']);
+    Route::apiResource('roles', RoleController::class);
 
 
 
@@ -64,7 +66,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF DIRECTIE
     Route::group(['middleware' => ['isVrijwilliger']], function() {
-
+        Route::get('familiesWithoutParcel', [FamilyController::class, 'familiesWithoutParcel']);
 
 
 
