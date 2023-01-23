@@ -152,7 +152,7 @@ class FamilyController extends Controller
         // ->get();
 
         return Family::doesntHave('parcels')->orWhereHas('parcels', function($q) {
-            $q->where('created_at', '<', Carbon::now()->subDays(1));
+            $q->where('created_at', '<', Carbon::now()->subDays(5));
         })
         ->get();
     }
