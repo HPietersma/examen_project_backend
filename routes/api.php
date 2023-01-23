@@ -35,13 +35,14 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('user', [AuthController::class, 'authToken']);
     Route::post('updateuser', [UserController::class, 'updateuser']);
     Route::apiResource('roles', RoleController::class);
+    Route::apiResource('klanten', FamilyController::class);
+    Route::get('restoreKlant/{id}', [FamilyController::class, 'restore']);
+
 
 
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
-        Route::apiResource('klanten', FamilyController::class);
-        Route::get('restoreKlant/{id}', [FamilyController::class, 'restore']);
         Route::apiResource('users', UserController::class);
         Route::get('restoreUser/{id}', [UserController::class, 'restore']);
         route::apiResource('parcels', ParcelController::class);
