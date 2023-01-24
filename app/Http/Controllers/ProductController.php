@@ -34,6 +34,26 @@ class ProductController extends Controller
             'quantity_stock' => 'required|int'
         ]);
 
+        $product = DB::table('products')->where('name', $fields['name'])->first();
+        if(!empty($product)) {
+            return response([
+                'message'=>'product already exists'
+            ], 400);
+        }
+
+        $category = DB::table('categories')->where('id', $fields['category_id'])->first();
+        if(empty($category)) {
+            return response([
+                'message'=>'category does not exist'
+            ], 400);
+        }
+
+        if($fields['quantity_stock'] < 0) {
+            return response([
+                'message'=>'quantity stock must be greater than 0'
+            ], 400);
+        }
+
         $product = Product::create([
             'name' => $fields['name'],
             'description' =>  $fields['description'],
