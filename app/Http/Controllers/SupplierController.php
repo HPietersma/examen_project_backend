@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Supplier;
-use App\Models\Supplier_Product;
-use App\Models\Product;
-
+use Carbon\Carbon;
 
 class SupplierController extends Controller
 {
@@ -43,6 +41,28 @@ class SupplierController extends Controller
             'last_delivery' => 'string|nullable|date_format:d-m-Y',
             'next_delivery' => 'string|nullable|date_format:d-m-Y',
         ]);
+
+        $supplier = DB::table('suppliers')->where('supplier', $fields['supplier'])->first();
+        if(!empty($supplier)) {
+            return response([
+                'message'=>'supplier already exists'
+            ], 400);
+        }
+
+        $last_date = Carbon::create($fields['last_delivery']);
+        $next_date = Carbon::create($fields['next_delivery']);
+
+        if($next_date < Carbon::now()) {
+            return response([
+                'message'=>'next delivery date cannot be in the past'
+            ], 400);
+        }
+
+        if($last_date > $next_date) {
+            return response([
+                'message'=>'last delivery date cannot be greater than next delivery date'
+            ], 400);
+        }
 
         $product = Supplier::create([
             'supplier' => $fields['supplier'],
