@@ -56,9 +56,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
         Route::apiResource('suppliers', SupplierController::class);
         Route::get('suppliersWithProducts', [SupplierController::class, 'suppliersWithProducts']);
         Route::get('supplierWithProducts/{id}', [SupplierController::class, 'supplierWithProducts']);
-
-
-
     });
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF DIRECTIE

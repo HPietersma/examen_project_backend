@@ -116,7 +116,15 @@ class ParcelController extends Controller
      */
     public function show($id)
     {
-        //
+        $parcel = Parcel::find($id);
+        if($parcel === null) { // if parcel doesn't exist
+            return response([
+                'message'=>'Pakket bestaat niet'
+            ], 404);
+        } else {
+            return response()->json($parcel);
+        }
+        
     }
 
     /**
