@@ -35,6 +35,14 @@ class UserController extends Controller
             'role_id' => 'required|int',
         ]);
 
+        $role = Role::find($request->role_id);
+
+        if (!$role) {
+            return response([
+                'message'=>'role not found'
+            ], 404);
+        }
+
         return User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
@@ -51,9 +59,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOr($id, fn () => response([
-            'record not found'
-        ], 404));
+        $user = User::find($id);
+
+        if (!$user) {
+            return response([
+                'message' => 'record not found'
+            ], 404);
+        }
 
         $role = Role::where('id', $user->role_id)->get('role_name')->first();
         $user['role'] = $role->role_name;
@@ -88,38 +100,52 @@ class UserController extends Controller
                 }
         
                 $record = User::find($id);
+                $role = Role::find($request->role_id);
         
-                if ($record) {
-                    $record->update([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'password' => $password,
-                        'role_id' => $request->role_id
-                    ]);
-                    return response($record, 200);
-                }
-                else {
+                if (!$record) {
                     return response([
                         'message'=>'record not found'
                     ], 404);
                 }
+
+                if (!$role) {
+                    return response([
+                        'message'=>'role not found'
+                    ], 404);
+                }
+                
+                $record->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $password,
+                    'role_id' => $request->role_id
+                ]);
+
+                return response($record, 200);
             }
             else {
                 $record = User::find($id);
+                $role = Role::find($request->role_id);
         
-                if ($record) {
-                    $record->update([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'role_id' => $request->role_id
-                    ]);
-                    return response($record, 200);
-                }
-                else {
+                if (!$record) {
                     return response([
                         'message'=>'record not found'
                     ], 404);
                 }
+
+                if (!$role) {
+                    return response([
+                        'message'=>'role not found'
+                    ], 404);
+                }
+
+                $record->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'role_id' => $request->role_id
+                ]);
+
+                return response($record, 200);
             }
         }
     }
