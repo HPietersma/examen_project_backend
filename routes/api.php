@@ -46,7 +46,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
         Route::apiResource('users', UserController::class);
         Route::get('restoreUser/{id}', [UserController::class, 'restore']);
         route::apiResource('parcels', ParcelController::class);
-        Route::get('products', [ProductController::class, 'products']);
 
 
     });

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 use App\Models\Family;
-use App\Models\Parcel;
 
 class FamilyController extends Controller
 {

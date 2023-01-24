@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,6 +52,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+
         $user = User::findOr($id, fn () => response([
             'record not found'
         ], 404));
@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //Als directie gegevens van alle gebruikers aan kunnen passen
             $fields = $request->validate([
                 'name' => 'string',
                 'email' => 'string',
@@ -105,16 +105,15 @@ class UserController extends Controller
 
     public function updateuser(Request $request)
     {
-        // haalt data van ingelogde gebruiker op
-       $user = Auth::user();
-        // aan te passen data ophalen
+        //Als gebruiker eigen gegevens wijzigen
+    $user = Auth::user();
+
         $update = $request->validate([
             'name' => 'string',
             'email' => 'string',
             'old_password' => 'string',
             'new_password' => 'string|different:old_password',
         ]);
-        //oud wachtwoord matchen
 
             if (Hash::check($update['old_password'], $user['password'])) {
                 $password = Hash::make($update['new_password']);
@@ -127,7 +126,6 @@ class UserController extends Controller
             }
 
             $record = User::find($user['id']);
-            //opgegeven records wijzigen
             if ($record) {
                 if($request->input('name')) { $record->update(['name' => $request->name]); }
                 if($request->input('email')) { $record->update(['email' => $request->email]); }
@@ -144,6 +142,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        //User verwijderen
         $record = User::find($id);
 
         if ($record) {
@@ -161,6 +160,7 @@ class UserController extends Controller
 
 
     public function restore($id) {
+        //Verwijderde gebruiker herstellen
         $record = User::where('id', $id)->withTrashed();
 
         if ($record) {

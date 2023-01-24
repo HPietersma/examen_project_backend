@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Supplier;
-use App\Models\Supplier_Product;
-use App\Models\Product;
 
 
 class SupplierController extends Controller
@@ -113,7 +111,7 @@ class SupplierController extends Controller
         else {
             return response([
                 'message'=>'record not found'
-            ], 404); 
+            ], 404);
         }
     }
 }
