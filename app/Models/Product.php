@@ -16,6 +16,7 @@ class Product extends Model
         'description',
         'category_id',
         'quantity_stock',
+        'EAN_number'
     ];
 
     public function categories() {
