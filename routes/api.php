@@ -1,8 +1,5 @@
 <?php
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\HTTP\Controllers\AuthController;
 use App\HTTP\Controllers\FamilyController;
 use App\Http\Controllers\ParcelController;
@@ -74,4 +71,3 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
 
 });
-
