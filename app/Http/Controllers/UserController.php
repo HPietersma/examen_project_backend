@@ -149,7 +149,7 @@ class UserController extends Controller
 
     
     public function restore($id) {
-        $record = User::where('id', $id)->withTrashed();
+        $record = User::where('id', $id)->withTrashed()->first();
 
         if ($record) {
             $record->restore();
