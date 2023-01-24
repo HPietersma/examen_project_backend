@@ -36,13 +36,13 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('restoreKlant/{id}', [FamilyController::class, 'restore']);
     Route::get('products', [ProductController::class, 'index']);
     Route::get('products/{id}', [ProductController::class, 'show']);
+    Route::apiResource('categories', CategoryController::class);
 
     
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
         Route::apiResource('users', UserController::class);
         Route::get('restoreUser/{id}', [UserController::class, 'restore']);
-        route::apiResource('parcels', ParcelController::class);
         Route::apiResource('klanten', FamilyController::class);
     });
 
@@ -52,7 +52,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
         Route::put('products/{id}', [ProductController::class, 'update']);
         Route::post('products', [ProductController::class, 'store']);
         Route::delete('products/{id}', [ProductController::class, 'destroy']);
-        Route::apiResource('categories', CategoryController::class);
         Route::apiResource('suppliers', SupplierController::class);
         Route::get('suppliersWithProducts', [SupplierController::class, 'suppliersWithProducts']);
         Route::get('supplierWithProducts/{id}', [SupplierController::class, 'supplierWithProducts']);
@@ -62,6 +61,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF DIRECTIE
     Route::group(['middleware' => ['isVrijwilliger']], function() {
         Route::get('familiesWithoutParcel', [FamilyController::class, 'familiesWithoutParcel']);
+        route::apiResource('parcels', ParcelController::class);
     });
 });
 
