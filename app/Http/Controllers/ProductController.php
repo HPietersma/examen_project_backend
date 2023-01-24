@@ -33,7 +33,6 @@ class ProductController extends Controller
             'category_id' => 'required|int',
             'quantity_stock' => 'required|int',
             'EAN_number' => 'nullable|int'
-
         ]);
 
         $category = Category::where('id', $fields['category_id'])->first();
