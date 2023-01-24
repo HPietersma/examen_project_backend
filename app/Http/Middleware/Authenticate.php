@@ -15,7 +15,8 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            http_response_code(400);
+            die('{"message": "Please add [Accept: application/json] in your request header."}');
         }
     }
 }
