@@ -85,7 +85,7 @@ class UserController extends Controller
         {
             $fields = $request->validate([
                 'name' => 'required|string',
-                'email' => 'required|string',
+                'email' => 'required|string|email',
                 'password' => 'nullable|string',
                 'role_id' => 'required|int',
             ]);
