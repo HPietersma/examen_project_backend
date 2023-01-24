@@ -52,7 +52,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
         $user = User::findOr($id, fn () => response([
             'record not found'
         ], 404));
