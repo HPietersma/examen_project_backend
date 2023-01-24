@@ -17,7 +17,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::with('role')->get();
+        $users =  User::with('role')->get();
+        foreach($users as $user) {
+            unset($user['password']);
+            unset($user['email_verified_at']);
+            
+        }
+
+        return $users;
     }
 
     /**
