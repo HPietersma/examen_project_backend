@@ -66,7 +66,7 @@ class FamilyController extends Controller
     public function show($id)
     {
         return Family::findOr($id, fn () => response([
-            'record not found'
+            'message'=>'record not found'
         ], 404));
     }
 
@@ -134,7 +134,8 @@ class FamilyController extends Controller
         if ($record) {
             $record->restore();
             return response([
-                'message'=>'record restored'
+                'message'=>'record restored',
+                $record
             ], 200);
         }
         else {

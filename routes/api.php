@@ -28,7 +28,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
 
-
 // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT WANNEER ER INGELOGD IS
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
@@ -38,39 +37,31 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('restoreKlant/{id}', [FamilyController::class, 'restore']);
 
 
-
-
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
         Route::apiResource('users', UserController::class);
         Route::get('restoreUser/{id}', [UserController::class, 'restore']);
         route::apiResource('parcels', ParcelController::class);
-
-
     });
+
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS MAGAZIJNMEDEWERKER OF DIRECTIE
     Route::group(['middleware' => ['isMagazijnmedewerker']], function() {
-        Route::apiResource('products', ProductController::class);
+        Route::put('products/{id}', [ProductController::class, 'update']);
+        Route::post('products', [ProductController::class, 'store']);
+        Route::delete('products/{id}', [ProductController::class, 'destroy']);
         Route::apiResource('categories', CategoryController::class);
         Route::apiResource('suppliers', SupplierController::class);
         Route::get('suppliersWithProducts', [SupplierController::class, 'suppliersWithProducts']);
         Route::get('supplierWithProducts/{id}', [SupplierController::class, 'supplierWithProducts']);
-
-
-
     });
+
 
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF DIRECTIE
     Route::group(['middleware' => ['isVrijwilliger']], function() {
         Route::get('familiesWithoutParcel', [FamilyController::class, 'familiesWithoutParcel']);
-
-
-
+        Route::get('products', [ProductController::class, 'index']);
+        Route::get('products/{id}', [ProductController::class, 'show']);
     });
-
-
-
-
 });
 
