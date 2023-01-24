@@ -38,8 +38,8 @@ class SupplierController extends Controller
     {
         $fields = $request->validate([
             'supplier' => 'required|string',
-            'last_delivery' => 'string|nullable|date_format:d-m-Y',
-            'next_delivery' => 'string|nullable|date_format:d-m-Y',
+            'last_delivery' => 'string|nullable|date_format:Y-m-d',
+            'next_delivery' => 'string|nullable|date_format:Y-m-d',
         ]);
 
         $supplier = DB::table('suppliers')->where('supplier', $fields['supplier'])->first();
@@ -97,8 +97,8 @@ class SupplierController extends Controller
     {
         $fields = $request->validate([
             'supplier' => 'required|string',
-            'last_delivery' => 'string|nullable|date_format:d-m-Y',
-            'next_delivery' => 'string|nullable|date_format:d-m-Y',
+            'last_delivery' => 'string|nullable|date_format:Y-m-d',
+            'next_delivery' => 'string|nullable|date_format:Y-m-d',
         ]);
 
         $record = Supplier::find($id);
