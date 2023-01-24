@@ -50,19 +50,24 @@ class ParcelController extends Controller
         {
             return response([
                 'message'=>'Familie bestaat niet'
-            ], 500);
+            ], 400);
         }
 
-        if (Parcel::where([
-                ['family_id', '=', '1'],
-                ['created_at', '>', Carbon::now()->subDays(5)]
-            ])->get()
-        ) {
-            return response([
-                'message' => 'Deze klant is al aan een pakket gekoppelt.'
-            ], 403);
-        }
+        $parcels = Parcel::where([
+            ['family_id', '=', $request->input('family_id')],
+        ])->get();
 
+        if($parcels->count() > 0) {
+            foreach($parcels as $parcel) {
+                if($parcel->created_at === null) { continue; }
+                $date = Carbon::parse($parcel->created_at);
+                if($date > Carbon::now()->subDays(6)) {
+                    return response([
+                        'message' => 'Deze klant heeft al een pakket ontvangen in de afgelopen 6 dagen.'
+                    ], 400);
+                }
+            }
+        }
 
         $parcel_id = [];
         // check if product can be added to parcel
@@ -76,7 +81,7 @@ class ParcelController extends Controller
             {
                 return response([
                     'message'=>'Er is niet genoeg voorraad van: ' . $productname->name
-                ], 500);
+                ], 400);
             }
             else(
                 DB::table('products')->where('id', $product['id'])->decrement('quantity_stock', $product['quantity'])
@@ -94,7 +99,9 @@ class ParcelController extends Controller
             $bool = DB::table('product_parcel')->insert([
                 'amount' => $product['quantity'],
                 'parcel_id' => $parcel_id,
-                'product_id' => $product['id']
+                'product_id' => $product['id'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
             if(!$bool) {
                 return response([
