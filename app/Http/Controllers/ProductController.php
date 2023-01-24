@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Category;
 
@@ -72,6 +72,26 @@ class ProductController extends Controller
             'category_id' => 'required|int',
             'quantity_stock' => 'required|int'
         ]);
+        
+        $product = DB::table('products')->where('name', $fields['name'])->whereNot('id', $id)->first();
+        if(!empty($product)) {
+            return response([
+                'message'=>'product already exists'
+            ], 400);
+        }
+
+        $category = DB::table('categories')->where('id', $fields['category_id'])->first();
+        if(empty($category)) {
+            return response([
+                'message'=>'category does not exist'
+            ], 400);
+        }
+
+        if($fields['quantity_stock'] < 0) {
+            return response([
+                'message'=>'quantity stock must be greater than 0'
+            ], 400);
+        }
 
         $record = Product::find($id);
 
