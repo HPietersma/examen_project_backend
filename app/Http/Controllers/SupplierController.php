@@ -40,8 +40,8 @@ class SupplierController extends Controller
     {
         $fields = $request->validate([
             'supplier' => 'required|string',
-            'last_delivery' => 'string|nullable',
-            'next_delivery' => 'string|nullable',
+            'last_delivery' => 'string|nullable|date_format:d-m-Y',
+            'next_delivery' => 'string|nullable|date_format:d-m-Y',
         ]);
 
         $product = Supplier::create([
@@ -77,8 +77,8 @@ class SupplierController extends Controller
     {
         $fields = $request->validate([
             'supplier' => 'required|string',
-            'last_delivery' => 'string|nullable',
-            'next_delivery' => 'string|nullable',
+            'last_delivery' => 'string|nullable|date_format:d-m-Y',
+            'next_delivery' => 'string|nullable|date_format:d-m-Y',
         ]);
 
         $record = Supplier::find($id);
