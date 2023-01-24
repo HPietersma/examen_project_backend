@@ -28,20 +28,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $fields = $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:products,name',
             'description' => 'string|nullable',
             'category_id' => 'required|int',
-            'quantity_stock' => 'required|int'
+            'quantity_stock' => 'required|int',
+            'EAN_number' => 'nullable|int'
+
         ]);
 
-        $product = DB::table('products')->where('name', $fields['name'])->first();
-        if(!empty($product)) {
-            return response([
-                'message'=>'product already exists'
-            ], 400);
-        }
-
-        $category = DB::table('categories')->where('id', $fields['category_id'])->first();
+        $category = Category::where('id', $fields['category_id'])->first();
         if(empty($category)) {
             return response([
                 'message'=>'category does not exist'
@@ -58,7 +53,8 @@ class ProductController extends Controller
             'name' => $fields['name'],
             'description' =>  $fields['description'],
             'category_id' => $fields['category_id'],
-            'quantity_stock' => $fields['quantity_stock']
+            'quantity_stock' => $fields['quantity_stock'],
+            'EAN_number' => $fields['EAN_number']
         ]);
 
         return response($product, 201);
@@ -90,9 +86,10 @@ class ProductController extends Controller
             'name' => 'required|string',
             'description' => 'string|nullable',
             'category_id' => 'required|int',
-            'quantity_stock' => 'required|int'
+            'quantity_stock' => 'required|int',
+            'EAN_number' => 'nullable|int'
         ]);
-        
+    
         $product = DB::table('products')->where('name', $fields['name'])->whereNot('id', $id)->first();
         if(!empty($product)) {
             return response([
@@ -100,7 +97,7 @@ class ProductController extends Controller
             ], 400);
         }
 
-        $category = DB::table('categories')->where('id', $fields['category_id'])->first();
+        $category = Category::where('id', $fields['category_id'])->first();
         if(empty($category)) {
             return response([
                 'message'=>'category does not exist'
