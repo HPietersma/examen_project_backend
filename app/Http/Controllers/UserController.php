@@ -91,7 +91,7 @@ class UserController extends Controller
             ]);
 
             if ($request->password) {
-                $password;
+                $password = null;
                 if (Hash::needsRehash($request->password)) {
                     $password = Hash::make($request->password);
                 }
