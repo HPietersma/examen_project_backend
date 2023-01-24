@@ -33,15 +33,17 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'authToken']);
     Route::apiResource('roles', RoleController::class);
-    Route::apiResource('klanten', FamilyController::class);
     Route::get('restoreKlant/{id}', [FamilyController::class, 'restore']);
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('products/{id}', [ProductController::class, 'show']);
 
-
+    
     // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS DIRECTIE
     Route::group(['middleware' => ['isDirectie']], function() {
         Route::apiResource('users', UserController::class);
         Route::get('restoreUser/{id}', [UserController::class, 'restore']);
         route::apiResource('parcels', ParcelController::class);
+        Route::apiResource('klanten', FamilyController::class);
     });
 
 
@@ -57,11 +59,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     });
 
 
-    // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF HOGER
+    // VOLGENDE ROUTES KUNNEN ALLEEN WORDEN BENADERT ALS VRIJWILLIGER OF DIRECTIE
     Route::group(['middleware' => ['isVrijwilliger']], function() {
         Route::get('familiesWithoutParcel', [FamilyController::class, 'familiesWithoutParcel']);
-        Route::get('products', [ProductController::class, 'index']);
-        Route::get('products/{id}', [ProductController::class, 'show']);
     });
 });
 

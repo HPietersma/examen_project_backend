@@ -129,13 +129,12 @@ class FamilyController extends Controller
     }
 
     public function restore($id) {
-        $record = Family::where('id', $id)->withTrashed();
+        $record = Family::where('id', $id)->withTrashed()->first();
 
         if ($record) {
             $record->restore();
             return response([
                 'message'=>'record restored',
-                $record
             ], 200);
         }
         else {
